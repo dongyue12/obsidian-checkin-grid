@@ -1,0 +1,604 @@
+/* Checkin Grid — 主题自适应样式，全部用 Obsidian CSS 变量 */
+
+.checkin-wrapper {
+  margin: 16px 0;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-primary);
+  overflow: hidden;
+}
+
+/* 顶部：标题 + 今日进度 */
+.checkin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+}
+
+.checkin-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-normal);
+  letter-spacing: 0.02em;
+}
+
+.checkin-today {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.checkin-top-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkin-today.is-clickable {
+  cursor: pointer;
+}
+
+.checkin-locate-btn {
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 5px;
+  box-shadow: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.checkin-locate-btn:hover {
+  color: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+}
+
+.checkin-today.is-all-done {
+  color: var(--text-success, var(--interactive-accent));
+  font-weight: 600;
+}
+
+/* 表格区 */
+.checkin-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.checkin-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  table-layout: auto;
+  margin: 0;
+  background: transparent;
+}
+
+/* 抵消 Obsidian 默认表格的竖线与外框 */
+.checkin-wrapper table.checkin-table,
+.checkin-wrapper table.checkin-table th,
+.checkin-wrapper table.checkin-table td {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+/* 只保留横向分隔线（用高优先级选择器，确保覆盖主题样式） */
+.checkin-wrapper table.checkin-table th {
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.checkin-wrapper table.checkin-table tbody td {
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.checkin-wrapper table.checkin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.checkin-table th {
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 4px 2px;
+  background: var(--background-secondary);
+  border-bottom: 1px solid var(--background-modifier-border);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.checkin-th-name {
+  text-align: left;
+  padding-left: 14px !important;
+  min-width: 92px;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: var(--background-secondary);
+}
+
+.checkin-th-day {
+  width: 34px;
+  min-width: 34px;
+}
+
+.checkin-th-day.is-today {
+  color: var(--text-accent);
+}
+
+.checkin-th-stat {
+  width: 46px;
+  min-width: 46px;
+}
+
+.checkin-md {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.checkin-wd {
+  font-size: 9px;
+  opacity: 0.65;
+}
+
+/* 行 */
+.checkin-table td {
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.checkin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.checkin-name {
+  text-align: left;
+  padding: 4px 10px 4px 14px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--text-normal);
+  position: sticky;
+  left: 0;
+  background: var(--background-primary);
+  z-index: 1;
+}
+
+.checkin-name-text {
+  display: inline-block;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: text;
+}
+
+/* 行内操作按钮：默认隐形，悬停整行时出现 */
+.checkin-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 6px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  vertical-align: middle;
+}
+
+.checkin-table tbody tr:hover .checkin-row-actions,
+.checkin-table tbody tr:focus-within .checkin-row-actions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .checkin-row-actions {
+    opacity: 1;
+  }
+}
+
+.checkin-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 1px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+
+.checkin-icon-btn:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.checkin-icon-btn.checkin-icon-danger:hover {
+  color: var(--text-error, #d64545);
+  background: var(--background-modifier-error, rgba(214, 69, 69, 0.12));
+}
+
+.checkin-icon-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* 重命名输入框 */
+.checkin-name.is-editing {
+  max-width: 260px;
+  overflow: visible;
+}
+
+.checkin-rename-input {
+  width: 100%;
+  min-width: 100px;
+  height: 22px;
+  padding: 0 6px;
+  font-size: 12px;
+}
+
+/* 删除二次确认 */
+.checkin-confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.checkin-confirm-text {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.checkin-confirm-btn {
+  height: 20px;
+  padding: 1px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.checkin-confirm-btn.is-danger {
+  color: #fff;
+  background: var(--text-error, #d64545);
+  border-color: var(--text-error, #d64545);
+}
+
+
+.checkin-td-cell {
+  padding: 2px;
+  text-align: center;
+}
+
+/* 格子 */
+.checkin-cell {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.08s ease;
+}
+
+.checkin-cell:hover {
+  border-color: var(--interactive-accent);
+  background: var(--background-modifier-hover);
+}
+
+.checkin-cell.is-on {
+  background: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+}
+
+.checkin-cell.is-on:hover {
+  background: var(--interactive-accent-hover, var(--interactive-accent));
+}
+
+.checkin-cell.is-today {
+  box-shadow: 0 0 0 1px var(--interactive-accent);
+}
+
+.checkin-cell.is-today.is-on {
+  box-shadow: 0 0 0 1px var(--background-primary), 0 0 0 2px var(--interactive-accent);
+}
+
+.checkin-cell.is-future {
+  opacity: 0.18;
+  cursor: default;
+}
+
+.checkin-cell.is-future:hover {
+  border-color: var(--background-modifier-border);
+  background: transparent;
+}
+
+.checkin-cell:active {
+  transform: scale(0.92);
+}
+
+/* 统计列 */
+.checkin-stat {
+  text-align: center;
+  padding: 4px 2px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.checkin-stat.is-hot {
+  color: var(--text-accent);
+  font-weight: 600;
+}
+
+.checkin-rate {
+  opacity: 0.85;
+}
+
+/* 空状态 */
+.checkin-empty {
+  padding: 18px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.9;
+}
+
+.checkin-empty code {
+  font-size: 11px;
+  background: var(--background-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 底栏 */
+.checkin-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 12px;
+  border-top: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+}
+
+.checkin-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  box-shadow: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.checkin-btn:hover {
+  color: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+}
+
+.checkin-btn-icon {
+  display: flex;
+}
+
+.checkin-btn-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.checkin-days {
+  display: flex;
+  gap: 4px;
+}
+
+.checkin-day-btn {
+  padding: 3px 9px;
+  font-size: 11px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.checkin-day-btn:hover {
+  background: var(--background-modifier-hover);
+}
+
+.checkin-day-btn.is-active {
+  color: var(--text-normal);
+  background: var(--background-primary);
+  border-color: var(--text-faint, var(--background-modifier-border));
+}
+
+/* 添加习惯弹窗 */
+.checkin-modal h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.checkin-modal-input {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.checkin-modal-btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* ==========================================================
+   移动端适配
+   ========================================================== */
+@media (max-width: 640px) {
+  .checkin-wrapper {
+    margin: 12px 0;
+  }
+
+  .checkin-topbar {
+    padding: 8px 10px;
+  }
+
+  .checkin-title {
+    font-size: 12px;
+  }
+
+  .checkin-today {
+    font-size: 11px;
+  }
+
+  .checkin-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .checkin-table {
+    font-size: 12px;
+  }
+
+  /* 名称列收窄，留宽度给格子 */
+  .checkin-th-name {
+    min-width: 72px;
+    padding-left: 10px !important;
+  }
+
+  .checkin-name {
+    max-width: 128px;
+    padding: 3px 6px 3px 10px;
+  }
+
+  .checkin-name-text {
+    max-width: 72px;
+  }
+
+  /* 触屏格子放大到 24px，既好点又不至于撑爆 7 天 */
+  .checkin-th-day {
+    width: 30px;
+    min-width: 30px;
+  }
+
+  .checkin-td-cell {
+    padding: 3px 1px;
+  }
+
+  .checkin-cell {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+  }
+
+  .checkin-th-stat {
+    width: 38px;
+    min-width: 38px;
+  }
+
+  .checkin-stat {
+    font-size: 10px;
+  }
+
+  .checkin-icon-btn {
+    width: 22px;
+    height: 22px;
+  }
+
+  .checkin-icon-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .checkin-footer {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 10px;
+  }
+
+  .checkin-btn {
+    padding: 6px 11px;
+    font-size: 12px;
+  }
+
+  .checkin-day-btn {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+}
+
+/* 极窄屏（多数手机竖屏）：隐藏完成率列，把宽度全给格子 */
+@media (max-width: 460px) {
+  .checkin-table th.checkin-th-stat:last-child,
+  .checkin-table td.checkin-stat.checkin-rate {
+    display: none;
+  }
+
+  .checkin-wrapper {
+    max-width: 100%;
+  }
+
+  .checkin-md {
+    font-size: 10px;
+  }
+
+  .checkin-wd {
+    font-size: 8.5px;
+    opacity: 0.5;
+  }
+
+  /* 压缩名称列与操作按钮，保证 7 天 + 连续列在 390px 内放得下 */
+  .checkin-name {
+    max-width: 118px;
+    padding: 3px 4px 3px 10px;
+  }
+
+  .checkin-name-text {
+    max-width: 76px;
+  }
+
+  .checkin-icon-btn {
+    width: 18px;
+    height: 18px;
+  }
+
+  .checkin-icon-btn svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .checkin-th-day {
+    width: 26px;
+    min-width: 26px;
+  }
+
+  .checkin-td-cell {
+    padding: 2px 0;
+  }
+
+  .checkin-cell {
+    width: 22px;
+    height: 22px;
+  }
+
+  .checkin-th-stat {
+    width: 34px;
+    min-width: 34px;
+  }
+}
+

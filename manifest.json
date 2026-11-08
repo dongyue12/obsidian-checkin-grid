@@ -1,0 +1,10 @@
+{
+  "id": "checkin-grid",
+  "name": "Checkin Grid",
+  "version": "1.0.0",
+  "minAppVersion": "1.2.0",
+  "description": "Markdown-native habit tracker: a clickable check-in grid rendered from a checkin code block. Click, rename and delete habits without leaving reading view.",
+  "author": "dongyue12",
+  "authorUrl": "https://github.com/dongyue12",
+  "isDesktopOnly": false
+}
